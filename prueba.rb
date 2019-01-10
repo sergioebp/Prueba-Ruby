@@ -6,11 +6,24 @@ def read_alum(file_name)
 end
 
 archivo = read_alum('doc.csv')
+nota = 0
+def aprovados(nota)
+  nota = gets.chomp
+  nota = 5.0 if nota.empty?
+  lista = []
+  puts "los siguientes alumnos aprovaron con un promedio igual o mayor a #{nota.to_f}"
+  read_alum('doc.csv').each do |i|
+    lista.push(i[0]) if (i.map { |j| j.to_i}.sum/(i.length-1).to_f) >= nota.to_f
+  end
+  puts ''
+  puts lista
+end
 
 opcion = ''
 puts 'Bienvenido'
 while opcion != '4' do 
-  puts "\n1) Promedio por alumno"
+  puts "\nSeleccione una opción"
+  puts '1) Promedio por alumno'
   puts '2) Inasistencias por alumno'
   puts '3) Alumnos que aprovaron'
   puts '4) Salir'
@@ -31,7 +44,8 @@ while opcion != '4' do
       puts "El alumno #{i[0]} tuvo #{total} inasistencias"
     end
   elsif opcion == '3'
-    #
+    puts 'ingrese un promedio'
+    aprovados nota
   elsif opcion == '4' 
     puts 'Adios'
   else
